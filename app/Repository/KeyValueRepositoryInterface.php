@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Collection\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 interface KeyValueRepositoryInterface
 {
@@ -17,5 +17,5 @@ interface KeyValueRepositoryInterface
     /**
      * @return Collection
      */
-    public function all(): Collection;
+    public function all(): ?Collection;
 }

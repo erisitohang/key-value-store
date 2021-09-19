@@ -23,6 +23,19 @@ class KeyValueController extends Controller
     }
 
     /**
+     * Get all keys
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
+    {
+        $all = $this->keyValueRepository->all();
+
+        return response()->json($all);
+    }
+
+    /**
      * Get value from key
      * @param string $key
      * @param Request $request

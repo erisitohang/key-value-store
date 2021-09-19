@@ -5,7 +5,7 @@ namespace App\Repository\Eloquent;
 use App\Models\KeyValue;
 use App\Repository\KeyValueRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Collection\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 class KeyValueRepository extends BaseRepository implements KeyValueRepositoryInterface
 {
@@ -33,8 +33,11 @@ class KeyValueRepository extends BaseRepository implements KeyValueRepositoryInt
             ->first();;
     }
 
-    public function all(): Collection
+    /**
+     * @return Collection
+     */
+    public function all(): ?Collection
     {
-        return new Collection('');
+        return $this->model->all();
     }
 }

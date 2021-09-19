@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\KeyValue;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class KeyValueFactory extends Factory
@@ -22,7 +23,9 @@ class KeyValueFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'key' => $this->faker->text(8),
+            'value' => $this->faker->text(30),
+            'timestamp' => Carbon::now()->timestamp
         ];
     }
 }

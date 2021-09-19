@@ -17,6 +17,7 @@ use App\Http\Controllers\KeyValueController;
 
 Route::group(['middleware' => ['api']], function () {
     Route::prefix('object')->group(function () {
+        Route::get('/get_all_records', [KeyValueController::class, 'index']);
         Route::get('/{key}', [KeyValueController::class, 'show']);
         Route::post('/', [KeyValueController::class, 'store']);
     });
