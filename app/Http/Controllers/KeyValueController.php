@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Resources\KeyValueResource;
 use App\Repository\KeyValueRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,11 +33,12 @@ class KeyValueController extends Controller
     {
         $all = $this->keyValueRepository->all();
 
-        return response()->json($all);
+        return  response()->json(KeyValueResource::collection($all));
     }
 
     /**
      * Get value from key
+     *
      * @param string $key
      * @param Request $request
      * @return JsonResponse
@@ -48,15 +50,13 @@ class KeyValueController extends Controller
             $timestamp = (int)$request->input('timestamp');
         }
 
-        ['key' => $key, 'value' => $value]  = $this->keyValueRepository->findKeyWithTime($key, $timestamp);
+        $result  = $this->keyValueRepository->findKeyWithTime($key, $timestamp);
 
-        if (!$key || !$value) {
+        if (!$result) {
             return response()->json(['error' => 'Key not found'], 422);
         }
 
-        return response()->json([
-            $key => $value,
-        ]);
+        return response()->json(new KeyValueResource($result));
     }
 
     /**
@@ -76,13 +76,12 @@ class KeyValueController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        ['key' => $key, 'value' => $value] = $this->keyValueRepository->create([
+        $result = $this->keyValueRepository->create([
             'key' => $firstKey,
             'value' => $input[$firstKey],
             'timestamp' => Carbon::now()->timestamp
         ]);
-        return response()->json([
-            $key => $value,
-        ], 201);
+
+        return response()->json(new KeyValueResource($result), 201);
     }
 }
