@@ -1,4 +1,4 @@
-# Reservation Vaccination Backend
+# Version Controlled Key-Value Store
 
 ## Requirements
 
@@ -85,7 +85,7 @@ Example request body:
 }
 ```
 
-### Add object:
+### Get object:
 
 `GET /object/mykey`
 
@@ -96,7 +96,18 @@ Example response:
 }
 ```
 
-### Add object:
+
+`GET /object/mykey?timestamp=1440568980`
+
+Example response:
+```JSON
+{
+    "mykey": "mykey_value"
+}
+```
+
+
+### Get all objects:
 
 `GET /object/get_all_records`
 
