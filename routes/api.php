@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KeyValueController;
 
@@ -20,5 +19,8 @@ Route::group(['middleware' => ['api']], function () {
         Route::get('/get_all_records', [KeyValueController::class, 'index']);
         Route::get('/{key}', [KeyValueController::class, 'show']);
         Route::post('/', [KeyValueController::class, 'store']);
+    });
+    Route::get('/', function () {
+        return response()->json(['status' => 'OK']);
     });
 });
